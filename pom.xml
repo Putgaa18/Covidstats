@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>WebShop</artifactId>
+    <artifactId>Covid-Stats</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>WebShop</name>
+    <name>Covid-Stats</name>
     <packaging>war</packaging>
 
     <properties>

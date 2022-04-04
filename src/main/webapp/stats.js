@@ -25,6 +25,10 @@ function getStats()
                         info.innerHTML += "<br/>";
                         info.innerText += "Rank: " + data.rank;
                 })
+                    .catch(function (err){
+                        alert("This country does not exist");
+                        console.log(err);
+                    });
             }
         );
 }

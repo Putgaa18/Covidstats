@@ -19,9 +19,9 @@ public class CovidResource {
     public Response loadData(@PathParam("c") String country)
     {
         try {
-                CovidDB.getInstance().loadCovidData(country);
-                Stats stats = CovidDB.getInstance().getStats();
-                return Response.ok(stats).build();
+            CovidDB.getInstance().loadCovidData(country);
+            Stats stats = CovidDB.getInstance().getStats();
+            return Response.ok(stats).build();
         }
         catch (NoSuchElementException nsee) {
             return Response.status(Response.Status.NOT_FOUND).build();

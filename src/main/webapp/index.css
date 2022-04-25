@@ -1,0 +1,109 @@
+body{
+    background-color: #293133;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 2em;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #293133;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #293133;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    font-style: oblique;
+    top: 0;
+    right: 25px;
+    font-size: 50px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+li{
+    background-image: linear-gradient(to top left, #f1f1f1, #293133);
+    height: 3.5em;
+    margin: 1em;
+    margin-left: 1.5em;
+    border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 0 0 8px 2px #888;
+}
+
+.countryImage{
+    position: relative;
+    width: 6em;
+    height: 4.25em;
+    left: -0.8em;
+}
+
+.imgC{
+    position: relative;
+    top: -7.9em;
+    left: -1em;
+    overflow: hidden;
+    width: 4.25em;
+    height: 4.25em;
+    border-radius: 100%;
+}
+
+.name{
+    position: relative;
+    font-family: Consolas;
+    font-size: 18px;
+    top: 0.5em;
+}
+
+.actualName{
+    position: relative;
+    font-size: 18px;
+    top: -0.75em;
+    left: -1.35em
+}
+
+.textdiv{
+    position: relative;
+    left: 4em;
+    top: -2.3em;
+}
+
+#keyWordInput {
+    position: absolute;
+    border-radius: 10px;
+    width: 65%;
+    top: 0.9em;
+    left: 1em;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    z-index: 0;
+}
+
+#searchIcon{
+    position: relative;
+    left: 0.75em;
+    top: -0.35em;
+    z-index: 1;
+}

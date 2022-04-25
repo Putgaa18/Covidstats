@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Statistics</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+<body onload="loadCountryList()">
 
-<script src="stats.js"></script>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
-<body>
-    <span>Country:</span>
-    <input id="inputCountry" type="text" placeholder="Countryname">
-    <p id="outData"></p>
-    <input onclick="getStats()" id="btnGet" type="button" value="GetData">
+  <div id="mySidenav" class="sidenav">
 
-    <img src="sudamerika.png" alt="SouthAmerica" usemap="#southamerica">
+    <i class="material-icons" id="searchIcon" style="font-size:32px;">search</i>
+    <input type="text" id="keyWordInput" onkeyup="filterlist()" placeholder="Filter country">
 
-    <map name="southamerica">
-        <area shape="rect" coords="500,24,730,200" alt="Brazil" href="https://www.twitch.tv/">
-        <area shape="rect" coords="0,0,0,0" alt="Brazil" href="https://www.youtube.com/">
-    </map>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <ul id="countrylist">
 
-</body>
+    </ul>
+  </div>
+
+
+
+  </body>
 </html>

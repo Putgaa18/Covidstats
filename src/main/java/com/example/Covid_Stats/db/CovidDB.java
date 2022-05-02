@@ -26,13 +26,13 @@ public class CovidDB {
         return theInstance;
     }
 
-    public void loadCovidData(String country)
+    public void loadCovidData(String country, String iso3)
     {
         try {
             // Input with name of the country and iso (three-letter-code)
             // At the moment the iso is still hardcoded, it should be getted through the selection of a country
             HttpResponse response = Unirest.get("https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p." +
-                    "rapidapi.com/api/npm-covid-data/country-report-iso-based/" + country + "/can")
+                    "rapidapi.com/api/npm-covid-data/country-report-iso-based/" + country + "/" + iso3)
                     .header("x-rapidapi-host", "vaccovid-coronavirus-vaccine-and-treatment-tracker.p." +
                             "rapidapi.com")
                     .header("x-rapidapi-key", "b9e5b6b837msh0d164cdd8603773p15f8e8jsnfd2a93515373")

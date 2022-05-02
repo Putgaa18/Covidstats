@@ -1,4 +1,5 @@
 let allcountryList = "";
+var currentiso3;
 
 function loadCountryList(){
     fetch("https://country-list5.p.rapidapi.com/countrylist/", {
@@ -20,6 +21,10 @@ function loadCountryList(){
                 var countryList = document.getElementById("countrylist");
                 for(var i = 0;i < data.country.length;i++){
                     var currentiso = (data.country[i].iso).toLowerCase();
+                    var current = (data.country[i].iso3).toLowerCase();
+                    currentiso3 = (data.country[i].iso3).toLowerCase();
+
+
                     var start = "<li>\n" +
                         "            <div>\n" +
                         "<div class=\"textdiv\">\n" +
@@ -27,7 +32,8 @@ function loadCountryList(){
                         "    <a class=\"actualName\">" + data.country[i].nicename + "</a>\n" +
                         "</div>" +
                         "                <div class=\"imgC\">\n" +
-                        "                    <img class=\"countryImage\" src=\"https://flagcdn.com/w80/" + currentiso + ".png\">\n" +
+                        "                    <img onclick='getStats(currentiso3)' class=\"countryImage\" " +
+                        "                       src=\"https://flagcdn.com/w80/" + currentiso + ".png\">\n" +
                         "                </div>\n" +
                         "                <div class=\"textDiv\">\n" +
                         "                    <h5></h5>\n" +
@@ -36,6 +42,8 @@ function loadCountryList(){
                         "            </div>\n" +
                         "        </li>";
                     countryList.insertAdjacentHTML("afterend", start);
+
+
                 }
             })
         }
@@ -74,4 +82,40 @@ function filterlist() {
             li[i].style.display = "none";
         }
     }
+}
+
+function getStats(useiso)
+{
+    alert(useiso);
+    var inputCountry = document.getElementById("inputCountry").value;
+    fetch('./api/stats/' + inputCountry + '/' + currentiso3)
+        .then(
+            function(response ){
+                if(response.status !== 200)
+                {
+                    console.log('Looks like there was a problem: ' + response.status);
+                    return;
+                }
+                response.json().then(function(data){
+                    var info = document.getElementById("outData");
+                    info.innerText = "Country: " + data.country;
+                    info.innerHTML += "<br/>";
+                    info.innerText += "ThreeLetter: " + data.threeLetter;
+                    info.innerHTML += "<br/>";
+                    info.innerText += "Total cases: " + data.totalcases;
+                    info.innerHTML += "<br/>";
+                    info.innerText += "New cases: " + data.newcases;
+                    info.innerHTML += "<br/>";
+                    info.innerText += "Total deaths: " + data.totaldeaths;
+                    info.innerHTML += "<br/>";
+                    info.innerText += "New deaths: " + data.newdeaths;
+                    info.innerHTML += "<br/>";
+                    info.innerText += "Rank: " + data.rank;
+                })
+                    .catch(function (err){
+                        alert("This country does not exist");
+                        console.log(err);
+                    });
+            }
+        );
 }

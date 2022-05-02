@@ -15,11 +15,11 @@ import java.util.NoSuchElementException;
 public class CovidResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{c}")
-    public Response loadData(@PathParam("c") String country)
+    @Path("/{c}/{iso}")
+    public Response loadData(@PathParam("c") String country, @PathParam("iso") String iso3)
     {
         try {
-            CovidDB.getInstance().loadCovidData(country);
+            CovidDB.getInstance().loadCovidData(country, iso3);
             Stats stats = CovidDB.getInstance().getStats();
             return Response.ok(stats).build();
         }

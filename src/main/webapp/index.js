@@ -21,9 +21,9 @@ function loadCountryList(){
                 var countryList = document.getElementById("countrylist");
                 for(var i = 0;i < data.country.length;i++){
                     var currentiso = (data.country[i].iso).toLowerCase();
+                    var currentName = (data.country[i].countryname);
                     var current = (data.country[i].iso3).toLowerCase();
                     currentiso3 = (data.country[i].iso3).toLowerCase();
-
 
                     var start = "<li>\n" +
                         "            <div>\n" +
@@ -32,7 +32,8 @@ function loadCountryList(){
                         "    <a class=\"actualName\">" + data.country[i].nicename + "</a>\n" +
                         "</div>" +
                         "                <div class=\"imgC\">\n" +
-                        "                    <img onclick='getStats(currentiso3)' class=\"countryImage\" " +
+                        "                    <img onclick='location.href = \"http://localhost:8080/Covid-Stats-1.0-" +
+                        "                           SNAPSHOT/api/stats/\" + currentname + \"/\" + currentiso + \"' class=\"countryImage\" " +
                         "                       src=\"https://flagcdn.com/w80/" + currentiso + ".png\">\n" +
                         "                </div>\n" +
                         "                <div class=\"textDiv\">\n" +
@@ -41,9 +42,11 @@ function loadCountryList(){
                         "                </div>\n" +
                         "            </div>\n" +
                         "        </li>";
+
+
+                    var x = document.getElementById("outData");
+                    //x.value = current;
                     countryList.insertAdjacentHTML("afterend", start);
-
-
                 }
             })
         }

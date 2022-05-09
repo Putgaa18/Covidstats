@@ -1,5 +1,4 @@
 let allcountryList = "";
-var currentiso3;
 
 function loadCountryList(){
     fetch("https://country-list5.p.rapidapi.com/countrylist/", {
@@ -21,32 +20,31 @@ function loadCountryList(){
                 var countryList = document.getElementById("countrylist");
                 for(var i = 0;i < data.country.length;i++){
                     var currentiso = (data.country[i].iso).toLowerCase();
-                    var currentName = (data.country[i].countryname);
+                    var currentName = (data.country[i].countryname).toLowerCase();
                     var current = (data.country[i].iso3).toLowerCase();
-                    currentiso3 = (data.country[i].iso3).toLowerCase();
+                    var cname = currentName.charAt(0).toUpperCase() + currentName.slice(1);
 
-                    var start = "<li>\n" +
-                        "            <div>\n" +
-                        "<div class=\"textdiv\">\n" +
-                        "    <p class=\"name\">Country name:</p>\n" +
-                        "    <a class=\"actualName\">" + data.country[i].nicename + "</a>\n" +
-                        "</div>" +
-                        "                <div class=\"imgC\">\n" +
-                        "                    <img onclick='location.href = \"http://localhost:8080/Covid-Stats-1.0-" +
-                        "                           SNAPSHOT/api/stats/\" + currentname + \"/\" + currentiso + \"' class=\"countryImage\" " +
-                        "                       src=\"https://flagcdn.com/w80/" + currentiso + ".png\">\n" +
-                        "                </div>\n" +
-                        "                <div class=\"textDiv\">\n" +
-                        "                    <h5></h5>\n" +
-                        "                    <p></p>\n" +
-                        "                </div>\n" +
-                        "            </div>\n" +
-                        "        </li>";
+                    if(cname.length < 30)
+                    {
+                        var start = "<li>\n" +
+                            "            <div>\n" +
+                            "<div class=\"textdiv\">\n" +
+                            "    <p class=\"name\">Country name:</p>\n" +
+                            "    <a class=\"actualName\">" + data.country[i].nicename + "</a>\n" +
+                            "</div>" +
+                            "                <div class=\"imgC\">\n" +
+                            "                    <img onclick='location.href=\"http://localhost:8080/Covid-Stats-1.0-SNAPSHOT/api/stats/" + cname + "/" + current + "\"' class=\"countryImage\" " +
+                            "                       src=\"https://flagcdn.com/w80/" + currentiso + ".png\">\n" +
+                            "                </div>\n" +
+                            "                <div class=\"textDiv\">\n" +
+                            "                    <h5></h5>\n" +
+                            "                    <p></p>\n" +
+                            "                </div>\n" +
+                            "            </div>\n" +
+                            "        </li>";
 
-
-                    var x = document.getElementById("outData");
-                    //x.value = current;
-                    countryList.insertAdjacentHTML("afterend", start);
+                        countryList.insertAdjacentHTML("afterend", start);
+                    }
                 }
             })
         }

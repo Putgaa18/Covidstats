@@ -11,20 +11,18 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 
+/**
+ * Concrete strategy. Implements the current data of a country.
+ */
 public class CurrentDataStrategy implements StatStrategy{
 
-    private static CovidDB theInstance;
+    private CurrentDataStrategy currentDataStrategy;
 
     private Stats stats;
 
-    public synchronized static CovidDB getInstance()
+    public CurrentDataStrategy getCurrentDataStrategy()
     {
-        if (theInstance == null)
-        {
-            theInstance = new CovidDB();
-        }
-
-        return theInstance;
+        return currentDataStrategy;
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.json.XML;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 
 /**
@@ -19,7 +20,7 @@ public class HistoryDataStrategy implements StatStrategy{
 
     private HistoryDataStrategy historyDataStrategy;
 
-    private Stats stats;
+    private ArrayList<Stats> stats = new ArrayList<>();
 
     public HistoryDataStrategy getHistoryDataStrategy()
     {
@@ -32,29 +33,47 @@ public class HistoryDataStrategy implements StatStrategy{
             // Input with name of the country and iso (three-letter-code)
             // At the moment the iso is still hardcoded, it should be getted through the selection of a country
             HttpResponse response = Unirest.get("https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p." +
-                    "rapidapi.com/api/npm-covid-data/country-report-iso-based/" + country + "/" + iso3)
+                                                "rapidapi.com/api/covid-ovid-data/sixmonth/" + iso3)
                     .header("x-rapidapi-host", "vaccovid-coronavirus-vaccine-and-treatment-tracker.p." +
                             "rapidapi.com")
-                    .header("x-rapidapi-key", "b9e5b6b837msh0d164cdd8603773p15f8e8jsnfd2a93515373")
+                    .header("x-rapidapi-key", "3189e74810mshf086f44fa17a27ap1f0f46jsne71def0cf46d")
                     .asString();
 
             // Get response from API
             String str = (String) response.getBody();
             // Convert JSON to XML
             String jsonStr = str.substring(1, str.length() - 1);
-            JSONObject json = new JSONObject(jsonStr);
-            String xmlStr = XML.toString(json);
 
-            // Add essential Rootelement in order to properly call it
-            xmlStr += "</root>";
-            String newXmlStr = "<root>" + xmlStr;
+            // Split the string into array, to add it into the arraylist
+            String splitedStr[] = jsonStr.split("\"date\"");
 
-            // Unmarshall the xml-file
-            JAXBContext jaxbContext = JAXBContext.newInstance(Stats.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            JSONObject json;
+            String xmlStr;
+            String newXmlStr;
+            StringReader reader;
+            JAXBContext jaxbContext;
+            Unmarshaller unmarshaller;
+            for(int i = 0; i < splitedStr.length; i++)
+            {
+                if(i >= 1)
+                {
+                    splitedStr[i] = "{\"date\"" + splitedStr[i] + "}";
+                    System.out.println(splitedStr[i]);
+                    json = new JSONObject(splitedStr[i]);
+                    xmlStr = XML.toString(json);
 
-            StringReader reader = new StringReader(newXmlStr);
-            stats = (Stats) unmarshaller.unmarshal(reader);
+                    // Add essential Rootelement in order to properly call it
+                    xmlStr += "</root>";
+                    newXmlStr = "<root>" + xmlStr;
+
+                    // Unmarshall the xml-file
+                    jaxbContext = JAXBContext.newInstance(Stats.class);
+                    unmarshaller = jaxbContext.createUnmarshaller();
+
+                    reader = new StringReader(newXmlStr);
+                    stats.add((Stats) unmarshaller.unmarshal(reader));
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,5 +81,5 @@ public class HistoryDataStrategy implements StatStrategy{
     }
 
     @Override
-    public Stats getStats() {return stats;}
+    public ArrayList<Stats> getStats() {return stats;}
 }

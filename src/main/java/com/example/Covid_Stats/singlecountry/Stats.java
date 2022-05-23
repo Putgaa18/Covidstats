@@ -51,5 +51,15 @@ public class Stats {
     private String newRecovered;
     @XmlElement(name = "TotalRecovered")
     private String totalRecovered;
+    @XmlElement(name = "date")
+    private String date;
+    @XmlElement(name = "new_cases")
+    private String new_cases;
+    @XmlElement(name = "new_deaths")
+    private String new_deaths;
+    @XmlElement(name = "total_cases")
+    private String total_cases;
+    @XmlElement(name = "rank")
     private String rank;
+
 }

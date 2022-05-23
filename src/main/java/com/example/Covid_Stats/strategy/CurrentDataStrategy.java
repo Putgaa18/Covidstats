@@ -10,6 +10,7 @@ import org.json.XML;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 /**
  * Concrete strategy. Implements the current data of a country.
@@ -18,7 +19,7 @@ public class CurrentDataStrategy implements StatStrategy{
 
     private CurrentDataStrategy currentDataStrategy;
 
-    private Stats stats;
+    private ArrayList<Stats> stats = new ArrayList<>();
 
     public CurrentDataStrategy getCurrentDataStrategy()
     {
@@ -53,7 +54,7 @@ public class CurrentDataStrategy implements StatStrategy{
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
             StringReader reader = new StringReader(newXmlStr);
-            stats = (Stats) unmarshaller.unmarshal(reader);
+            stats.add((Stats) unmarshaller.unmarshal(reader));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,5 +62,5 @@ public class CurrentDataStrategy implements StatStrategy{
     }
 
     @Override
-    public Stats getStats() {return stats;}
+    public ArrayList<Stats> getStats() {return stats;}
 }

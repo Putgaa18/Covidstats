@@ -26,6 +26,8 @@ function loadCountryList(){
 
                     if(cname.length < 30)
                     {
+                        //var onclickTag = document.createElement("img");
+                        //onclickTag.addEventListener(fetchStats(currentName, current));
                         var start = "<li>\n" +
                             "            <div>\n" +
                             "<div class=\"textdiv\">\n" +
@@ -46,6 +48,27 @@ function loadCountryList(){
                         countryList.insertAdjacentHTML("afterend", start);
                     }
                 }
+            })
+        }
+    )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+}
+
+function fetchStats(currentname, currentiso3) {
+    alert(currentname);
+    alert(currentiso3);
+    fetch("./api/stats/").then(
+        function (response) {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' +
+                    response.status);
+                return;
+            }
+            response.json().then(function (data) {
+                console.log(data);
+
             })
         }
     )

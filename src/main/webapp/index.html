@@ -4,25 +4,48 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script src="index.js"></script>
+  <script src="Graph.js"></script>
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
-<body onload="loadCountryList()">
+<body onload="loadCountryList(), loadPie1(), loadPie2(), loadLineOne(), loadTop5()">
 
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
-  <div id="mySidenav" class="sidenav">
+<div id="mySidenav" class="sidenav">
 
-    <i class="material-icons" id="searchIcon" style="font-size:32px;">search</i>
-    <input type="text" id="keyWordInput" onkeyup="filterlist()" placeholder="Filter country">
+  <i class="material-icons" id="searchIcon" style="font-size:32px;">search</i>
+  <input type="text" id="keyWordInput" onkeyup="filterlist()" placeholder="Filter country">
 
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <ul id="countrylist">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <ul id="countrylist">
 
+  </ul>
+
+</div>
+
+<div class="wraper">
+  <div class="item1">
+    <h2>Top 5 countries</h2>
+    <ul id="top5">
     </ul>
   </div>
+  <div class="item2">
+    <canvas id="line1" width="0.1em" height="0.1em"></canvas>
+  </div>
+  <div class="item3">
+    <h3>General Information</h3>
+  </div>
+  <div class="item4">
+    <canvas id="pi1" width="0.1em" height="0.1em"></canvas>
+  </div>
+  <div class="item5">
+    <canvas id="pi2" width="0.1em" height="2em"></canvas>
+  </div>
+</div>
 
+<img >
 
-
-  </body>
+</body>
 </html>

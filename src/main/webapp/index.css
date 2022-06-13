@@ -1,5 +1,18 @@
+html{
+    min-height: 100% !important;
+    height: 100%;
+}
+
 body{
+    min-height: 100% !important;
+    height: 100%;
     background-color: #293133;
+}
+
+h2{
+    position: relative;
+    left: 3.5em;
+    margin-bottom: 0.75em;
 }
 
 .sidenav {
@@ -42,7 +55,7 @@ body{
     .sidenav a {font-size: 18px;}
 }
 
-li{
+.sidenav li{
     background-image: linear-gradient(to top left, #f1f1f1, #293133);
     height: 3.5em;
     margin: 1em;
@@ -106,4 +119,110 @@ li{
     left: 0.75em;
     top: -0.35em;
     z-index: 1;
+}
+
+.wraper{
+    margin: auto;
+    padding: 0.5em;
+    display: grid;
+    width: 95%;
+    height: 90%;
+    grid-gap: 0.5em;
+    grid-template-columns: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
+}
+
+.wraper div{
+    background-color: white;
+    border-radius: 1em;
+}
+
+.item1 {
+    border: 1px solid black;
+    grid-column: 1 / span 4;
+    grid-row: 1 / 5;
+}
+
+.item2 {
+    border: 1px solid black;
+    grid-column: 5 / 8;
+    grid-row: 1 / 5;
+}
+
+.item3 {
+    border: 1px solid black;
+    grid-column: 1 / span 3;
+    grid-row: 5 / 10;
+}
+
+.item4 {
+    border: 1px solid black;
+    grid-column: 4 / 6;
+    grid-row: 5 / 10;
+}
+
+.item5 {
+    border: 1px solid black;
+    grid-column: 6 / 8;
+    grid-row: 5 / 10;
+}
+
+/Graphen/
+
+.item2{
+    height: 25em !important;
+}
+
+.item4{
+    height: 25em !important;
+}
+
+.item5{
+    height: 25em !important;
+}
+
+
+/* List */
+#top5 {
+    counter-reset: index;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* List element */
+#top5 li {
+    border-bottom: 2px solid #293133;
+    counter-increment: index;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    box-sizing: border-box;
+    height: 3em;
+}
+
+/* Element counter */
+#top5 li::before {
+    content: counters(index, ".", decimal-leading-zero);
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
+    min-width: 50px;
+    padding-right: 12px;
+    font-variant-numeric: tabular-nums;
+    align-self: flex-start;
+    background-image: linear-gradient(to bottom, aquamarine, orangered);
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+li:hover {
+    transform: scale(1.1);
+}
+
+/* Element separation */
+#top5 li + li {
+    border-top: 1px solid rgba(255,255,255,1);
 }

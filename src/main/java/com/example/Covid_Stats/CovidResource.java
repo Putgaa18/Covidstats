@@ -8,6 +8,7 @@ import com.example.Covid_Stats.strategy.HistoryDataStrategy;
 import com.example.Covid_Stats.strategy.StatStrategy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -17,6 +18,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -37,21 +39,20 @@ public class CovidResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{c}/{iso}")
-    public Response loadData(@PathParam("c") String country, @PathParam("iso") String iso3)
+    public List loadData(@PathParam("c") String country, @PathParam("iso") String iso3)
     {
         try {
             strategy = new CurrentDataStrategy();
             strategy.loadCovidData(country, iso3);
             ArrayList<Stats> stats = strategy.getStats();
 
-            //ObjectMapper om = new ObjectMapper();
-            //String data = om.writeValueAsString(stats.toString());
+            return stats;
 
-
-            return Response.ok(stats).build();
+            //return Response.ok(stats).build();
         }
         catch (NoSuchElementException nsee) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            //return Response.status(Response.Status.NOT_FOUND).build();
+            return null;
         }
 
     }
@@ -59,17 +60,17 @@ public class CovidResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{c}/{iso}/{t}")
-    public Response loadData(@PathParam("c") String country, @PathParam("iso") String iso3, @PathParam("t") String h)
+    public List loadData(@PathParam("c") String country, @PathParam("iso") String iso3, @PathParam("t") String h)
     {
         try {
             strategy = new HistoryDataStrategy();
             strategy.loadCovidData(country, iso3);
             ArrayList<Stats> stats = strategy.getStats();
 
-            return Response.ok(stats).build();
+            return stats;
         }
         catch (NoSuchElementException nsee) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return null;
         }
     }
 }

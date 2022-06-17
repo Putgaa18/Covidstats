@@ -1,6 +1,5 @@
 package com.example.Covid_Stats.strategy;
 
-import com.example.Covid_Stats.db.CovidDB;
 import com.example.Covid_Stats.singlecountry.Stats;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -14,19 +13,28 @@ import java.util.ArrayList;
 
 
 /**
- * Concrete strategy. Implements the historic data of a country.
+ * Covid-Stats
+ * Concrete strategy. Implements the historic data of a country. The methods of this class are called by the
+ * 'CovidResource' class and an ArrayList with all the data is being returned in a Getter-Function
+ * @author putgaa18
+ * @version 1.0
+ * date: 17.06.2022
  */
 public class HistoryDataStrategy implements StatStrategy{
 
-    private HistoryDataStrategy historyDataStrategy;
-
     private ArrayList<Stats> stats = new ArrayList<>();
 
-    public HistoryDataStrategy getHistoryDataStrategy()
-    {
-        return historyDataStrategy;
-    }
-
+    /**
+     * This method fills the ArrayList with the data from the 'VACCOVID-API'. For the API-call the name and iso3 of the
+     * country is used. This api call differs from the one called in 'CurrentDataStrategy'. The JSON response from the
+     * API is saved on a String, which will be converted to XML.
+     * In order to add multiple statistics to the ArrayList the String must be splitted into an array. A loop goes
+     * through the entire array. And adds the String '{"date"}' at the beginning. To save the data a root-element has to
+     * be added at the beginning and at the end of the single String in the array. Now a single String will be
+     * unmarshalled and added to the ArrayList.
+     * @param country Name of the selected country, which is needed to set a correct API-call
+     * @param iso3 ISO3 of the selected country, which is needed to set a correct API-call
+     */
     @Override
     public void loadCovidData(String country, String iso3) {
         try {
@@ -58,7 +66,6 @@ public class HistoryDataStrategy implements StatStrategy{
                 if(i >= 1)
                 {
                     splitedStr[i] = "{\"date\"" + splitedStr[i] + "}";
-                    System.out.println(splitedStr[i]);
                     json = new JSONObject(splitedStr[i]);
                     xmlStr = XML.toString(json);
 

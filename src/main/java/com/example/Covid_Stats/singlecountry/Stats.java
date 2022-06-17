@@ -30,6 +30,13 @@ import java.util.List;
 @Data
 @XmlRootElement(name = "root")
 @XmlAccessorType(XmlAccessType.FIELD)
+/**
+ * Covid-Stats
+ * This class is a dataclass to save the values, which are being returned by the api.
+ * @author putgaa18
+ * @version 1.0
+ * date: 17.06.2022
+ */
 public class Stats {
     @XmlElement(name = "Country")
     private String country;

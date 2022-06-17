@@ -1,6 +1,5 @@
 package com.example.Covid_Stats.strategy;
 
-import com.example.Covid_Stats.db.CovidDB;
 import com.example.Covid_Stats.singlecountry.Stats;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -13,24 +12,29 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 /**
- * Concrete strategy. Implements the current data of a country.
+ * Covid-Stats
+ * Concrete strategy. Implements the current data of a country. The methods of this class are called by the
+ * 'CovidResource' class and an ArrayList with all the data is being returned in a Getter-Function
+ * @author putgaa18
+ * @version 1.0
+ * date: 17.06.2022
  */
 public class CurrentDataStrategy implements StatStrategy{
 
-    private CurrentDataStrategy currentDataStrategy;
-
     private ArrayList<Stats> stats = new ArrayList<>();
 
-    public CurrentDataStrategy getCurrentDataStrategy()
-    {
-        return currentDataStrategy;
-    }
-
+    /**
+     * This method fills the ArrayList with the data from the 'VACCOVID-API'. For the API-call the name and iso3 of the
+     * country is used. The JSON response from the API is saved on a String, which will be converted to XML. To
+     * save the data a root-element has to be added at the beginning and at the end of the String. Now the String will
+     * be unmarshalled and added to the ArrayList.
+     * @param country Name of the selected country, which is needed to set a correct API-call
+     * @param iso3 ISO3 of the selected country, which is needed to set a correct API-call
+     */
     @Override
     public void loadCovidData(String country, String iso3) {
         try {
             // Input with name of the country and iso (three-letter-code)
-            // At the moment the iso is still hardcoded, it should be getted through the selection of a country
             HttpResponse response = Unirest.get("https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p." +
                     "rapidapi.com/api/npm-covid-data/country-report-iso-based/" + country + "/" + iso3)
                     .header("x-rapidapi-host", "vaccovid-coronavirus-vaccine-and-treatment-tracker.p." +

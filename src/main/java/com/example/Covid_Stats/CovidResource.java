@@ -1,29 +1,27 @@
 package com.example.Covid_Stats;
 
-import com.example.Covid_Stats.db.CovidDB;
-import com.example.Covid_Stats.singlecountry.HistoricStats;
 import com.example.Covid_Stats.singlecountry.Stats;
 import com.example.Covid_Stats.strategy.CurrentDataStrategy;
 import com.example.Covid_Stats.strategy.HistoryDataStrategy;
 import com.example.Covid_Stats.strategy.StatStrategy;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 
+
 /**
- * Used as the 'Navigator'-class from the strategy pattern
+ * Covid-Stats
+ * This class is used as the 'Navigator'-class from the strategy pattern
+ * @author putgaa18
+ * @version 1.0
+ * date: 17.06.2022
  */
 @Path("/stats")
 public class CovidResource {
@@ -31,10 +29,11 @@ public class CovidResource {
     private static StatStrategy strategy;
 
     /**
-     * Method to load current data for a specified country
+     * Method to load the current data for a specified country and return them to a JavaScript-Function
      * @param country Name of the selected country
      * @param iso3 ISO3 of the selected country
-     * @return HTML page with output of the data
+     * @return ArrayList with all the useful statistics of the country, which will later be displayed on an html page
+     * through a JavaScript-Function
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,16 +46,20 @@ public class CovidResource {
             ArrayList<Stats> stats = strategy.getStats();
 
             return stats;
-
-            //return Response.ok(stats).build();
         }
         catch (NoSuchElementException nsee) {
-            //return Response.status(Response.Status.NOT_FOUND).build();
             return null;
         }
 
     }
 
+    /**
+     * Method to load the historic data for a specified country and return them to a JavasScript-function
+     * @param country Name of the selected country
+     * @param iso3 ISO3 of the selected country
+     * @param h An extra parameter in the path in order to know that the historic stats have to be called
+     * @return ArrayList with all the useful statistics of the country from the last 10 days
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{c}/{iso}/{t}")

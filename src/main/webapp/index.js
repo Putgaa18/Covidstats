@@ -27,8 +27,6 @@ function loadCountryList(){
                     //console.log(allcountryList[i]);
                     if(cname.length < 30)
                     {
-                        //var onclickTag = document.createElement("img");
-                        //onclickTag.addEventListener("click", fetchStats(cname, current));
 
                         var functionCall = "fetchStats(\""+cname+"\",\""+current+"\")";
 
@@ -77,6 +75,11 @@ function fetchCurrent(currentname, currentiso3) {
                 console.log(data);
                 loadPie1(data[0].activecases, data[0].newdeaths, data[0].newcases);
                 loadPie2(data[0].totalRecovered, data[0].totaldeaths, data[0].population);
+
+
+                var info = document.getElementById("genInfo");
+                info.innerText += "\n\nCountryname: " + currentname + "\nIso3: " + currentiso3 +
+                    "\nPopulation: " + data[0].population + "\nAll time deaths: " + data[0].totaldeaths;
             })
         }
     )
@@ -135,42 +138,6 @@ function filterlist() {
             li[i].style.display = "none";
         }
     }
-}
-
-function getStats(useiso)
-{
-    alert(useiso);
-    var inputCountry = document.getElementById("inputCountry").value;
-    fetch('./api/stats/' + inputCountry + '/' + currentiso3)
-        .then(
-            function(response ){
-                if(response.status !== 200)
-                {
-                    console.log('Looks like there was a problem: ' + response.status);
-                    return;
-                }
-                response.json().then(function(data){
-                    var info = document.getElementById("outData");
-                    info.innerText = "Country: " + data.country;
-                    info.innerHTML += "<br/>";
-                    info.innerText += "ThreeLetter: " + data.threeLetter;
-                    info.innerHTML += "<br/>";
-                    info.innerText += "Total cases: " + data.totalcases;
-                    info.innerHTML += "<br/>";
-                    info.innerText += "New cases: " + data.newcases;
-                    info.innerHTML += "<br/>";
-                    info.innerText += "Total deaths: " + data.totaldeaths;
-                    info.innerHTML += "<br/>";
-                    info.innerText += "New deaths: " + data.newdeaths;
-                    info.innerHTML += "<br/>";
-                    info.innerText += "Rank: " + data.rank;
-                })
-                    .catch(function (err){
-                        alert("This country does not exist");
-                        console.log(err);
-                    });
-            }
-        );
 }
 
 function loadTop5(){
